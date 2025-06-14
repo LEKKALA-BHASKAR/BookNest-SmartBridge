@@ -31,7 +31,7 @@ const TeamPage = () => {
       age: 20,
       gender: 'Male',
       github: 'https://github.com/dhanush5575',
-      linkedin: 'https://linkedin.com',
+      linkedin: 'https://linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=jalla-dhanush-06175536b',
       email: 'mailto:jalladhanush636@gmail.com',
       image: 'https://media.istockphoto.com/id/1310896133/photo/happy-smiling-afro-businessman-using-laptop-at-the-desk-in-office.webp?s=2048x2048&w=is&k=20&c=OH8w-cpAU4KOrHri2kfA1w3rQ6EKyhAeXwb9pnGy9kM=',
       bio: 'Pixel-perfect interface craftsman creating immersive user experiences.',
