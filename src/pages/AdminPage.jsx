@@ -121,6 +121,10 @@ const AdminPage = () => {
   if (!user || !isAdmin) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
+        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
         <Card className="p-8 text-center max-w-md mx-auto">
           <h1 className="text-2xl font-bold text-gray-900 mb-6">Access Denied</h1>
           <p className="text-gray-600 mb-6">

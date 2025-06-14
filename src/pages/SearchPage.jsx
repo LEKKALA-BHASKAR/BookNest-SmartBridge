@@ -60,6 +60,10 @@ const SearchPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+      <br/>
+                        <br/>
+                        <br/>
+                        <br/>
       {/* Floating Decorative Elements */}
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-400/5 rounded-full filter blur-3xl"></div>

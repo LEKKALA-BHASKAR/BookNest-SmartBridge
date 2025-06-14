@@ -56,6 +56,11 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 overflow-x-hidden font-sans antialiased">
+
+      <br/>
+      <br/>
+      <br/>
+      <br/>
       {/* Hero Section - Ultra Premium */}
       <div className="relative overflow-hidden min-h-screen flex items-center justify-center">
         {/* Luxury Dynamic Background */}

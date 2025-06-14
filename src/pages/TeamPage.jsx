@@ -68,6 +68,10 @@ const TeamPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden relative">
+      <br/>
+                        <br/>
+                        <br/>
+                        <br/>
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-blue-400/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-1/3 right-1/4 w-40 h-40 bg-amber-400/10 rounded-full blur-3xl"></div>
