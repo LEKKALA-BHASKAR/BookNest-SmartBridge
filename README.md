@@ -46,8 +46,8 @@ https://booknest-xi.vercel.app
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/booknest.git
-cd booknest
+https://github.com/LEKKALA-BHASKAR/BookNest-SmartBridge.git
+cd BookNest-SmartBridge
 
 # Install dependencies
 npm i
