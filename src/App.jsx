@@ -9,7 +9,7 @@ import AdminPage from './pages/AdminPage'
 import FavoritesPage from './pages/FavoritesPage'
 import ProfilePage from './pages/ProfilePage'
 import './index.css'
-
+import NotFound from "./pages/NotFound";
 function App() {
   return (
     <AuthProvider>
@@ -24,6 +24,8 @@ function App() {
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="*" element={<NotFound/>} />
+            
           </Routes>
         </div>
       </Router>
