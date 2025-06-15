@@ -9,8 +9,13 @@ import AdminPage from './pages/AdminPage'
 import FavoritesPage from './pages/FavoritesPage'
 import ProfilePage from './pages/ProfilePage'
 import './index.css'
+
 import NotFound from "./pages/NotFound";
 import ReactTermsPage from './pages/ReactTermsPage.jsx'
+
+import Policy from './pages/Policy.jsx'
+import  NotFound  from './pages/NotFound.jsx'
+
 function App() {
   return (
     <AuthProvider>
@@ -25,8 +30,13 @@ function App() {
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+
             <Route path="*" element={<NotFound/>} />
+
             <Route path="/terms" elements={<ReactTermsPage />}/>
+
+
+            <Route path="/policy" element={<Policy/>} />
 
             
           </Routes>
