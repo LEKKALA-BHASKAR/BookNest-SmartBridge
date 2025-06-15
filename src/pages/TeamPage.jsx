@@ -41,12 +41,12 @@ const TeamPage = () => {
     {
       name: 'G Jaya Prakash',
       role: 'Backend Maestro',
-      age: 23,
+      age: 21,
       gender: 'Male',
       github: 'https://github.com/jayaprakash47',
       linkedin: 'https://www.linkedin.com/in/jaya-prakash-0b78032b6?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app',
       email: 'mailto:Prakashjaya143143@gmail.com',
-      image: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: 'https://images.pexels.com/photos/5926375/pexels-photo-5926375.jpeg?auto=compress&cs=tinysrgb&w=600',
       bio: 'Data virtuoso with deep expertise in backend architectures and APIs.',
       skills: ['JavaScript', 'Python', 'PostgreSQL', 'API Design', 'DevOps'],
       accentColor: 'from-amber-600 to-orange-600'
