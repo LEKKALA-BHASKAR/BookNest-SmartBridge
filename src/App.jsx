@@ -9,7 +9,7 @@ import AdminPage from './pages/AdminPage'
 import FavoritesPage from './pages/FavoritesPage'
 import ProfilePage from './pages/ProfilePage'
 import './index.css'
-
+import PrivacyPolicy from './pages/PrivacyPolicy';
 function App() {
   return (
     <AuthProvider>
@@ -24,6 +24,7 @@ function App() {
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
           </Routes>
         </div>
       </Router>
