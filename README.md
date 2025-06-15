@@ -109,8 +109,6 @@ Meet **Sarah**, a busy professional and avid reader who struggles to find time t
 📖 **Happy Reading with BookNest!** 📖
 
 ## 🌐 Live Preview
-
-> [Visit BookNest App](#)  
 https://booknest-xi.vercel.app
 
 ## 📸 Screenshots
