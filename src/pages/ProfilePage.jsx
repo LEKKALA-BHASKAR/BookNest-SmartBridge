@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { User, Mail, Calendar, Shield, Edit2, Save, X, Heart, BookOpen, LogIn, RefreshCw } from 'lucide-react'
+import { User, Mail, Calendar, Shield, Edit2, Save, X, Heart, BookOpen, LogIn, RefreshCw, Gem, Sparkles } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useAuth } from '../contexts/AuthContext'
 import { getUserFavorites } from '../services/favoritesApi'
 import Button from '../components/UI/Button'
@@ -21,11 +22,8 @@ const ProfilePage = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log('ProfilePage useEffect - authLoading:', authLoading, 'user:', !!user, 'profile:', !!profile)
-    
     if (!authLoading) {
       if (user) {
-        // Set form data from profile if available
         if (profile) {
           setFormData({
             full_name: profile.full_name || ''
@@ -40,11 +38,9 @@ const ProfilePage = () => {
 
   const loadUserData = async () => {
     try {
-      console.log('Loading user data...')
       setError('')
       setLoading(true)
       
-      // Add timeout to prevent infinite loading
       const timeoutPromise = new Promise((_, reject) => 
         setTimeout(() => reject(new Error('Request timeout')), 10000)
       )
@@ -52,12 +48,10 @@ const ProfilePage = () => {
       const favoritesPromise = getUserFavorites()
       
       const favs = await Promise.race([favoritesPromise, timeoutPromise])
-      console.log('Loaded user favorites:', favs)
       setFavorites(favs || [])
     } catch (error) {
-      console.error('Error loading user data:', error)
       setError(error.message === 'Request timeout' ? 'Request timed out. Please try again.' : 'Failed to load user data')
-      setFavorites([]) // Set empty array on error
+      setFavorites([])
     } finally {
       setLoading(false)
     }
@@ -80,7 +74,6 @@ const ProfilePage = () => {
         setEditing(false)
       }
     } catch (error) {
-      console.error('Error updating profile:', error)
       setError('Failed to update profile')
     } finally {
       setUpdating(false)
@@ -102,274 +95,370 @@ const ProfilePage = () => {
     }
   }
 
-  // Show loading spinner while auth is loading
   if (authLoading) {
-    console.log('Showing auth loading spinner')
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
         <LoadingSpinner size="xl" />
       </div>
     )
   }
 
-  // Show sign in required if no user
   if (!user) {
-    console.log('No user, showing sign in required')
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
-        <Card className="p-8 text-center max-w-md mx-auto">
-          <User className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Sign In Required</h2>
-          <p className="text-gray-600 mb-6">Please sign in to view your profile.</p>
-          <Button onClick={() => navigate('/')}>
-            <LogIn className="w-4 h-4 mr-2" />
-            Go to Home
-          </Button>
-        </Card>
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <Card className="p-12 text-center max-w-md mx-auto bg-white/90 backdrop-blur-sm border border-gray-200/50 shadow-lg">
+            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center">
+              <User className="w-10 h-10 text-gray-400" />
+            </div>
+            <h2 className="text-2xl font-medium text-gray-900 mb-4 tracking-tight">Sign In Required</h2>
+            <p className="text-gray-600 mb-8 font-light">Please sign in to view your premium profile.</p>
+            <Button 
+              onClick={() => navigate('/')}
+              className="shadow-md hover:shadow-lg transition-shadow"
+            >
+              <LogIn className="w-5 h-5 mr-2" />
+              Go to Home
+            </Button>
+          </Card>
+        </motion.div>
       </div>
     )
   }
 
-  console.log('Rendering profile page with', favorites.length, 'favorites')
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            My Profile
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      {/* Floating Decorative Elements */}
+      <div className="fixed top-0 left-0 w-full h-full pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-400/5 rounded-full filter blur-3xl"></div>
+        <div className="absolute bottom-1/3 right-1/4 w-72 h-72 bg-amber-400/5 rounded-full filter blur-3xl"></div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 py-12 relative z-10">
+        {/* Luxurious Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            className="inline-flex items-center space-x-2 bg-white/90 backdrop-blur-md text-gray-800 px-5 py-1.5 rounded-full text-xs font-medium mb-8 shadow-lg border border-gray-200/50"
+          >
+            <Gem className="w-4 h-4 text-amber-500" />
+            <span className="tracking-wider">PREMIUM PROFILE</span>
+          </motion.div>
+          
+          <h1 className="text-4xl md:text-5xl font-medium text-gray-900 mb-6 tracking-tight leading-tight">
+            My Literary
+            <motion.span 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+              className="block mt-4 text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-500"
+            >
+              Journey
+            </motion.span>
           </h1>
-          <p className="text-lg text-gray-600">
-            Manage your account and preferences
-          </p>
-        </div>
+          
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed font-light"
+          >
+            Your personalized dashboard for literary exploration
+          </motion.p>
+        </motion.div>
 
         {/* Error Message */}
         {error && (
-          <div className="mb-6">
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
-              <p className="text-red-700 mb-3">{error}</p>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="mb-8 max-w-2xl mx-auto"
+          >
+            <div className="bg-red-50/90 backdrop-blur-sm border border-red-200 rounded-xl p-6 text-center shadow-sm">
+              <p className="text-red-700 font-medium mb-4">{error}</p>
               <Button 
                 variant="ghost" 
                 onClick={handleRetry}
-                className="text-red-600 hover:text-red-700"
+                className="text-red-600 hover:text-red-700 border border-red-200 hover:border-red-300"
               >
                 <RefreshCw className="w-4 h-4 mr-2" />
                 Try Again
               </Button>
             </div>
-          </div>
+          </motion.div>
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
           {/* Profile Info */}
           <div className="lg:col-span-2 space-y-6">
-            <Card className="p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-semibold text-gray-900">Profile Information</h2>
-                {!editing ? (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setEditing(true)}
-                  >
-                    <Edit2 className="w-4 h-4 mr-2" />
-                    Edit
-                  </Button>
-                ) : (
-                  <div className="flex space-x-2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Card className="p-8 bg-white/90 backdrop-blur-md border border-gray-200/50 shadow-lg hover:shadow-xl transition-all duration-300">
+                <div className="flex items-center justify-between mb-8">
+                  <h2 className="text-xl font-medium text-gray-900 tracking-tight">Profile Information</h2>
+                  {!editing ? (
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => {
-                        setEditing(false)
-                        setError('')
-                        setFormData({ full_name: profile?.full_name || '' })
-                      }}
+                      onClick={() => setEditing(true)}
+                      className="border border-gray-300/50 hover:border-gray-400/50"
                     >
-                      <X className="w-4 h-4 mr-2" />
-                      Cancel
+                      <Edit2 className="w-4 h-4 mr-2" />
+                      Edit Profile
                     </Button>
-                    <Button
-                      size="sm"
-                      onClick={handleUpdateProfile}
-                      loading={updating}
-                    >
-                      <Save className="w-4 h-4 mr-2" />
-                      Save
-                    </Button>
-                  </div>
-                )}
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <User className="w-5 h-5 text-gray-400" />
-                  {editing ? (
-                    <Input
-                      value={formData.full_name}
-                      onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
-                      placeholder="Enter your full name"
-                      className="flex-1"
-                    />
                   ) : (
-                    <div>
-                      <p className="font-medium text-gray-900">
-                        {profile?.full_name || 'No name set'}
-                      </p>
-                      <p className="text-sm text-gray-500">Full Name</p>
+                    <div className="flex space-x-3">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          setEditing(false)
+                          setError('')
+                          setFormData({ full_name: profile?.full_name || '' })
+                        }}
+                        className="border border-gray-300/50 hover:border-gray-400/50"
+                      >
+                        <X className="w-4 h-4 mr-2" />
+                        Cancel
+                      </Button>
+                      <Button
+                        size="sm"
+                        onClick={handleUpdateProfile}
+                        loading={updating}
+                        className="shadow-md hover:shadow-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500"
+                      >
+                        <Save className="w-4 h-4 mr-2" />
+                        Save Changes
+                      </Button>
                     </div>
                   )}
                 </div>
 
-                <div className="flex items-center space-x-3">
-                  <Mail className="w-5 h-5 text-gray-400" />
-                  <div>
-                    <p className="font-medium text-gray-900">{user.email}</p>
-                    <p className="text-sm text-gray-500">Email Address</p>
+                <div className="space-y-6">
+                  <div className="flex items-center space-x-4">
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center ${editing ? 'bg-amber-100/50' : 'bg-gray-100/50'}`}>
+                      <User className={`w-5 h-5 ${editing ? 'text-amber-600' : 'text-gray-500'}`} />
+                    </div>
+                    {editing ? (
+                      <Input
+                        value={formData.full_name}
+                        onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
+                        placeholder="Your full name"
+                        className="flex-1 border-gray-300/50 focus:border-amber-400/50 focus:ring-amber-400/30"
+                      />
+                    ) : (
+                      <div>
+                        <p className="font-medium text-gray-900 text-lg">
+                          {profile?.full_name || 'No name set'}
+                        </p>
+                        <p className="text-sm text-gray-500">Full Name</p>
+                      </div>
+                    )}
                   </div>
-                </div>
 
-                <div className="flex items-center space-x-3">
-                  <Calendar className="w-5 h-5 text-gray-400" />
-                  <div>
-                    <p className="font-medium text-gray-900">
-                      {profile?.created_at 
-                        ? new Date(profile.created_at).toLocaleDateString()
-                        : 'Recently joined'
-                      }
-                    </p>
-                    <p className="text-sm text-gray-500">Member Since</p>
-                  </div>
-                </div>
-
-                {profile?.is_admin && (
-                  <div className="flex items-center space-x-3">
-                    <Shield className="w-5 h-5 text-primary-600" />
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 rounded-full bg-gray-100/50 flex items-center justify-center">
+                      <Mail className="w-5 h-5 text-gray-500" />
+                    </div>
                     <div>
-                      <p className="font-medium text-primary-600">Administrator</p>
-                      <p className="text-sm text-gray-500">Admin Access Enabled</p>
+                      <p className="font-medium text-gray-900 text-lg">{user.email}</p>
+                      <p className="text-sm text-gray-500">Email Address</p>
                     </div>
                   </div>
-                )}
-              </div>
-            </Card>
+
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 rounded-full bg-gray-100/50 flex items-center justify-center">
+                      <Calendar className="w-5 h-5 text-gray-500" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-gray-900 text-lg">
+                        {profile?.created_at 
+                          ? new Date(profile.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+                          : 'Recently joined'
+                        }
+                      </p>
+                      <p className="text-sm text-gray-500">Member Since</p>
+                    </div>
+                  </div>
+
+                  {profile?.is_admin && (
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 rounded-full bg-blue-100/50 flex items-center justify-center">
+                        <Shield className="w-5 h-5 text-blue-600" />
+                      </div>
+                      <div>
+                        <p className="font-medium text-blue-600 text-lg">Administrator</p>
+                        <p className="text-sm text-gray-500">Admin Access Enabled</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </Card>
+            </motion.div>
 
             {/* Account Actions */}
-            <Card className="p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Account Actions</h2>
-              <div className="space-y-3">
-                <Button
-                  variant="danger"
-                  onClick={handleSignOut}
-                  className="w-full sm:w-auto"
-                >
-                  Sign Out
-                </Button>
-              </div>
-            </Card>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              <Card className="p-8 bg-white/90 backdrop-blur-md border border-gray-200/50 shadow-lg hover:shadow-xl transition-all duration-300">
+                <h2 className="text-xl font-medium text-gray-900 mb-6 tracking-tight">Account Actions</h2>
+                <div className="space-y-4">
+                  <Button
+                    variant="danger"
+                    onClick={handleSignOut}
+                    className="w-full shadow-md hover:shadow-lg transition-shadow"
+                  >
+                    Sign Out
+                  </Button>
+                </div>
+              </Card>
+            </motion.div>
           </div>
 
           {/* Stats Sidebar */}
           <div className="space-y-6">
             {loading ? (
-              <Card className="p-6 text-center">
-                <LoadingSpinner size="md" />
-                <p className="text-gray-600 mt-2">Loading stats...</p>
-              </Card>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+              >
+                <Card className="p-8 text-center bg-white/90 backdrop-blur-md border border-gray-200/50 shadow-lg">
+                  <LoadingSpinner size="md" />
+                  <p className="text-gray-600 mt-4 font-light">Loading your literary stats...</p>
+                </Card>
+              </motion.div>
             ) : (
-              <Card className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Your Stats</h3>
-                <div className="space-y-4">
-                  <div className="text-center">
-                    <div className="flex items-center justify-center mb-2">
-                      <Heart className="w-5 h-5 text-red-500 mr-2" />
-                    </div>
-                    <p className="text-3xl font-bold text-primary-600">{favorites.length}</p>
-                    <p className="text-sm text-gray-600">Favorite Books</p>
-                  </div>
-                  
-                  <div className="text-center">
-                    <div className="flex items-center justify-center mb-2">
-                      <BookOpen className="w-5 h-5 text-secondary-600 mr-2" />
-                    </div>
-                    <p className="text-3xl font-bold text-secondary-600">
-                      {[...new Set(favorites.map(fav => {
-                        const book = fav.book_data
-                        return book.categories?.[0] || book.category || 'Uncategorized'
-                      }))].length}
-                    </p>
-                    <p className="text-sm text-gray-600">Categories Explored</p>
-                  </div>
-
-                  <div className="text-center">
-                    <div className="flex items-center justify-center mb-2">
-                      <Calendar className="w-5 h-5 text-accent-600 mr-2" />
-                    </div>
-                    <p className="text-3xl font-bold text-accent-600">
-                      {profile?.created_at 
-                        ? Math.floor((Date.now() - new Date(profile.created_at)) / (1000 * 60 * 60 * 24))
-                        : 0
-                      }
-                    </p>
-                    <p className="text-sm text-gray-600">Days as Member</p>
-                  </div>
-                </div>
-              </Card>
-            )}
-
-            {/* Recent Favorites */}
-            {!loading && favorites.length > 0 && (
-              <Card className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Favorites</h3>
-                <div className="space-y-3">
-                  {favorites.slice(0, 3).map((fav) => {
-                    const book = fav.book_data
-                    return (
-                      <div key={fav.id} className="flex items-center space-x-3">
-                        <div className="w-10 h-14 bg-gray-200 rounded flex-shrink-0 overflow-hidden">
-                          <img
-                            src={book.coverImage || book.cover_image}
-                            alt={book.title}
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                              e.target.style.display = 'none'
-                            }}
-                          />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900 truncate">
-                            {book.title}
-                          </p>
-                          <p className="text-xs text-gray-500 truncate">
-                            {book.authors?.[0] || book.author}
-                          </p>
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </Card>
-            )}
-
-            {/* Empty State for No Favorites */}
-            {!loading && favorites.length === 0 && (
-              <Card className="p-6 text-center">
-                <Heart className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No Favorites Yet</h3>
-                <p className="text-sm text-gray-500 mb-4">
-                  Start exploring books and add them to your favorites!
-                </p>
-                <Button
-                  size="sm"
-                  onClick={() => navigate('/search')}
+              <>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
                 >
-                  Discover Books
-                </Button>
-              </Card>
+                  <Card className="p-8 bg-white/90 backdrop-blur-md border border-gray-200/50 shadow-lg hover:shadow-xl transition-all duration-300">
+                    <h3 className="text-lg font-medium text-gray-900 mb-6 tracking-tight">Your Literary Stats</h3>
+                    <div className="space-y-8">
+                      <div className="text-center">
+                        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-100/50 flex items-center justify-center">
+                          <Heart className="w-6 h-6 text-red-500" />
+                        </div>
+                        <p className="text-4xl font-bold text-red-500">{favorites.length}</p>
+                        <p className="text-sm text-gray-500 uppercase tracking-wider mt-2">Favorite Books</p>
+                      </div>
+                      
+                      <div className="text-center">
+                        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-green-100/50 flex items-center justify-center">
+                          <BookOpen className="w-6 h-6 text-green-500" />
+                        </div>
+                        <p className="text-4xl font-bold text-green-500">
+                          {[...new Set(favorites.map(fav => {
+                            const book = fav.book_data
+                            return book.categories?.[0] || book.category || 'Uncategorized'
+                          }))].length}
+                        </p>
+                        <p className="text-sm text-gray-500 uppercase tracking-wider mt-2">Categories Explored</p>
+                      </div>
+
+                      <div className="text-center">
+                        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-amber-100/50 flex items-center justify-center">
+                          <Calendar className="w-6 h-6 text-amber-500" />
+                        </div>
+                        <p className="text-4xl font-bold text-amber-500">
+                          {profile?.created_at 
+                            ? Math.floor((Date.now() - new Date(profile.created_at)) / (1000 * 60 * 60 * 24))
+                            : 0
+                          }
+                        </p>
+                        <p className="text-sm text-gray-500 uppercase tracking-wider mt-2">Days as Member</p>
+                      </div>
+                    </div>
+                  </Card>
+                </motion.div>
+
+                {/* Recent Favorites */}
+                {favorites.length > 0 ? (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.8 }}
+                  >
+                    <Card className="p-8 bg-white/90 backdrop-blur-md border border-gray-200/50 shadow-lg hover:shadow-xl transition-all duration-300">
+                      <h3 className="text-lg font-medium text-gray-900 mb-6 tracking-tight">Recent Treasures</h3>
+                      <div className="space-y-4">
+                        {favorites.slice(0, 3).map((fav) => {
+                          const book = fav.book_data
+                          return (
+                            <motion.div 
+                              key={fav.id} 
+                              whileHover={{ x: 5 }}
+                              className="flex items-center space-x-4 p-3 rounded-lg hover:bg-gray-50/50 transition-colors cursor-pointer"
+                              onClick={() => navigate(`/book/${book.id}`, { state: { book, type: 'api' } })}
+                            >
+                              <div className="w-12 h-16 bg-gray-200 rounded flex-shrink-0 overflow-hidden shadow-sm">
+                                <img
+                                  src={book.coverImage || book.cover_image}
+                                  alt={book.title}
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-sm font-medium text-gray-900 truncate">
+                                  {book.title}
+                                </p>
+                                <p className="text-xs text-gray-500 truncate">
+                                  {book.authors?.[0] || book.author}
+                                </p>
+                              </div>
+                            </motion.div>
+                          )
+                        })}
+                      </div>
+                    </Card>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.8 }}
+                  >
+                    <Card className="p-8 text-center bg-white/90 backdrop-blur-md border border-gray-200/50 shadow-lg hover:shadow-xl transition-all duration-300">
+                      <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100/50 flex items-center justify-center">
+                        <Heart className="w-6 h-6 text-gray-400" />
+                      </div>
+                      <h3 className="text-lg font-medium text-gray-900 mb-2 tracking-tight">Your Collection Awaits</h3>
+                      <p className="text-sm text-gray-500 mb-6 font-light">
+                        Start building your personal library of literary treasures
+                      </p>
+                      <Button
+                        size="sm"
+                        onClick={() => navigate('/search')}
+                        className="shadow-sm hover:shadow-md"
+                      >
+                        Discover Books
+                      </Button>
+                    </Card>
+                  </motion.div>
+                )}
+              </>
             )}
           </div>
         </div>
