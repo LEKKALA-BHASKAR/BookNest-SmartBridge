@@ -111,6 +111,12 @@ Meet **Sarah**, a busy professional and avid reader who struggles to find time t
 ## 🌐 Live Preview
 https://booknest-xi.vercel.app
 
+
+
+https://github.com/user-attachments/assets/7ea4997c-4654-43d3-93d8-599fe7987d71
+
+
+
 ## 📸 Screenshots
 
 ![Screenshot 2025-06-14 215456](https://github.com/user-attachments/assets/0d9e43ac-5c37-4d0c-8982-7653eb9a3a79)
