@@ -346,8 +346,8 @@ const HomePage = () => {
           <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-xs text-gray-600 mb-4 md:mb-0">© {new Date().getFullYear()} BookNest. All rights reserved.</p>
             <div className="flex space-x-6">
-              <Link to="#" className="text-xs text-gray-600 hover:text-gray-400 transition-colors duration-200">Privacy</Link>
-              <Link to="#" className="text-xs text-gray-600 hover:text-gray-400 transition-colors duration-200">Terms</Link>
+              <Link to="/privacy" className="text-xs text-gray-600 hover:text-gray-400 transition-colors duration-200">Privacy</Link>
+              <Link to="/policy" className="text-xs text-gray-600 hover:text-gray-400 transition-colors duration-200">Terms</Link>
               <Link to="#" className="text-xs text-gray-600 hover:text-gray-400 transition-colors duration-200">Cookies</Link>
             </div>
           </div>
