@@ -1,3 +1,8 @@
+# admin login credentials 
+gmail :admin@gmail.com
+password : admin@123
+
+
 # 📚 BookNest: Where Stories Nestle
 
 Welcome to **BookNest**, a revolutionary online bookstore application built with the **MERN Stack** (MongoDB, Express.js, React, Node.js). Designed for book lovers, BookNest combines a passion for reading with cutting-edge technology to deliver a seamless digital book-buying experience.
