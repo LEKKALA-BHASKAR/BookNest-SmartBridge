@@ -23,6 +23,7 @@ Welcome to **BookNest**, a revolutionary online bookstore application built with
 ### **Seamless Purchase Process**
 - Add books to cart, adjust quantities, and checkout securely with real-time inventory updates.
 
+
 ### **Order Confirmation**
 - Instant confirmation with order ID, book details, and total price.
 
@@ -128,6 +129,7 @@ https://github.com/user-attachments/assets/7ea4997c-4654-43d3-93d8-599fe7987d71
 ![Screenshot 2025-06-14 215548](https://github.com/user-attachments/assets/b3472740-bfe0-4f43-9411-fe6b446c64ed)
 ![Screenshot 2025-06-14 215606](https://github.com/user-attachments/assets/94f486e4-613e-4cd2-804a-d141365cb097)
 ![Screenshot 2025-06-14 215618](https://github.com/user-attachments/assets/4e78110a-b79b-40e0-b2db-ad1d9ba6f935)
+![Screenshot 2025-06-28 114455](https://github.com/user-attachments/assets/c0c688a7-4c74-4376-813c-03cd011b61b7)
 
 
 ## 📦 Installation & Setup
